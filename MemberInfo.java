@@ -102,7 +102,6 @@ public class MemberInfo {
 				Student student1 = new Student(tokens[0], tokens[1], tokens[2]);
 				// members 객체 배열에 생성한 student1 넣기
 				members.add(student1);
-			
 			fileReader.close();
 			}
 		}catch (IOException e) {
@@ -117,9 +116,9 @@ public class MemberInfo {
 		while(true) {
 			System.out.print("학 번 : ");
 			uid = sc.nextLine();
-			if(uid.equals("q")){
-				return;
-			}
+			if(uid.trim().equals("q")){
+            return;
+     }
 			try {
 				Integer.parseInt(uid);
 			}catch(Exception E) {
@@ -144,9 +143,9 @@ public class MemberInfo {
 	         System.out.print("이 름 : ");
 	         name = sc.nextLine();
 	         int check = 0;
-	         if(name.contentEquals("q")) {
-	            return;
-	         }
+	         if(name.trim().contentEquals("q")) {
+               return;
+            }
 	         if (!name.matches("^[가-힣]+$")) {
 	            // 영어, 공백, 한글 형식
 	            if (name.matches(".*[a-zA-Z]+.*")) {
@@ -185,9 +184,9 @@ public class MemberInfo {
 		while(true) {
 			System.out.print("암 호 : ");
 			pwd = sc.nextLine();
-			if(pwd.equals("q")){
-				return;
-			}
+			if(pwd.trim().equals("q")){
+            return;
+         }
 			if (pwd.length()<8 || pwd.length()>12) {
 				System.out.println(">> 8~12자 영문, 숫자를 사용하세요.");
 				continue;
@@ -274,9 +273,9 @@ public class MemberInfo {
 			// 수정 꼭 하기
 			System.out.print("학번 : ");
 			inputid = scanner.nextLine();
-			if(inputid.equals("q")) {
-				return;
-			}
+			 if(inputid.trim().equals("q")) {
+            return;
+         }
 			try {
 				Integer.parseInt(inputid);
 			}catch(Exception E) {
