@@ -61,6 +61,7 @@ public class TestMain {
 					System.out.println("현황판을 출력합니다.");
 					String filename = "src/StudyRoom/ReservationInfo.txt";
 					String[][] room_Info = new String[8][8];
+					int check = 0;
 					try (FileReader fileReader = new FileReader(filename);
 							BufferedReader bufferedReader = new BufferedReader(fileReader)) {
 						String line;
@@ -68,15 +69,68 @@ public class TestMain {
 						while ((line = bufferedReader.readLine()) != null) {
 							//개행 문자별로 구분하도록
 							// 선언한 배열 안에 split으로 구분하여 하나씩 넣기
-							String[] tokens = line.split(" ");
-							for(int j=0;j<8;j++) { 
+							String[] tokens = null;
+							if(check == 8) {
+								System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+								System.exit(0);
+							}
+							else {
+							tokens = line.split(" ");
+							if(tokens.length != 8) {
+								System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+								System.exit(0);
+							}
+							}
+							for(int j=0;j<8;j++) {
+								if(j == 0) {
+									if(Integer.parseInt(tokens[0]) != check+1) {
+										System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+										System.exit(0);
+									}
+								}
+								else if(j == 1) {
+									if(Integer.parseInt(tokens[j-1]) >= 1 && Integer.parseInt(tokens[j-1]) <= 3) {
+										if(!tokens[j].equals("4")) {
+											System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+											System.exit(0);
+										}
+									}
+									else if(Integer.parseInt(tokens[j-1]) >= 4 && Integer.parseInt(tokens[j-1]) <= 6) {
+										if(!tokens[j].equals("6")) {
+											System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+											System.exit(0);
+										}
+									}
+									else if(Integer.parseInt(tokens[j-1]) >= 7 && Integer.parseInt(tokens[j-1]) <= 8) {
+										if(!tokens[j].equals("8")) {
+											System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+											System.exit(0);
+										}
+									}
+								}
+								else {
+									if(!tokens[j].equals("0")) {
+										 if(tokens[j].length()!=9||tokens[j].charAt(0)!='2'||tokens[j].charAt(1)!='0'
+									               ||(tokens[j].charAt(2)!='1'&&tokens[j].charAt(2)!='2')||
+									               ((tokens[j].charAt(2)=='2'&&tokens[j].charAt(3)>'3'))) {
+											 System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+											 System.exit(0);
+										 }
+									}
+								}
 								room_Info[i][j]=tokens[j];
 							}
 							i++;
+							check++;
 						}
 						fileReader.close();
 					} catch (IOException e) {
-						e.printStackTrace();
+						System.out.println("예약 정보 파일이 없습니다.\n프로그램을 종료합니다.");
+						System.exit(0);
+					}
+					if(check != 8) {
+						System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+						 System.exit(0);
 					}
 					System.out.println("-------------------------------------------");
 					System.out.print(" 호실 한도인원  1교시(10~12시)  2교시(12~14시)  3교시(14~16시)  4교시(16~18시)  5교시(18~20시)  6교시(20~22시)\n");
