@@ -57,7 +57,7 @@ public class MemberInfo {
          }
          fileReader.close();
       } catch (IOException e) {
-         System.out.println("회원 정보 파일이 없습니다. 프로그램을 종료합니다.");
+         System.out.println("회원 정보 파일이 없습니다.\n프로그램을 종료합니다.");
          System.exit(0);
       }
    }
@@ -141,7 +141,7 @@ public class MemberInfo {
             return;
          }
          if (pwd.length()<8 || pwd.length()>12) {
-            System.out.println(">> 8~12자 영문, 숫자를 사용하세요.");
+            System.out.println(">> 8~12자 영문 소문자, 숫자를 사용하세요.");
             continue;
          }
          else if (pwd.contains(" ")) {
@@ -153,7 +153,7 @@ public class MemberInfo {
                for(int i=0; i<pwd.length(); i++) {
                int index = pwd.charAt(i);
                if(!((index >=48 && index <= 57)||(index >=97 && index <=122))) {
-                  System.out.println(">> 8~12자 영문, 숫자를 사용하세요. ");
+                  System.out.println(">> 8~12자 영문 소문자, 숫자를 사용하세요. ");
                   correct =true;
                   break;
                }
@@ -250,7 +250,7 @@ public class MemberInfo {
                return;
             }
             if (inputpwd.length()<8 || inputpwd.length()>12) {
-               System.out.println(">> 8~12자 영문, 숫자를 사용하세요.");
+               System.out.println(">> 8~12자 영문 소문자, 숫자를 사용하세요.");
                continue;
             }
             else if (inputpwd.contains(" ")) {
