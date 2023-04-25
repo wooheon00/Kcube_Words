@@ -54,7 +54,7 @@ public class MemberInfo {
 				try{
 					Integer.parseInt(tokens[0]);
 				}catch(Exception E){
-					System.out.println("파일 형식에 오류가 있습니다.");
+					System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
 					System.exit(0);
 				}
 				if(tokens[0].length()!=9||tokens[0].charAt(0)!='2'||tokens[0].charAt(1)!='0'
@@ -70,31 +70,31 @@ public class MemberInfo {
 		            		||tokens[1].contains(" ")||tokens[1].contains("\t")
 		            		||tokens[1].matches(".*\\d+.*")
 		            		) {
-		                System.out.println("파일(이름) 형식에 오류가 있습니다.");
+		                System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
 		                System.exit(0);
 		            }
 		            else{
-		               System.out.println("파일 형식에 오류가 있습니다.");
+		               System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
 		               System.exit(0);
 		            }
 		         }
 		         if(tokens[1].length()<2||tokens[1].length()>10) {
-		            System.out.println("파일 (이름 길이) 형식에 오류가 있습니다.");
+		            System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
 		            System.exit(0);
 		         }
 		         if (tokens[2].length()<8 || tokens[2].length()>12) {
-					System.out.println("파일 (비밀번호) 형식에 오류가 있습니다");
+					System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
 					System.exit(0);
 				 }
 				 else if (tokens[2].contains(" ")) {
-					System.out.println("파일 (비밀번호) 형식에 오류가 있습니다");
+					System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
 					System.exit(0);
 				 }
 			   	 else{  //영문 숫자 말고 다른 것 입력하면 다시 입력
 			 			for(int i=0; i<tokens[2].length(); i++) {
 			 				int index = tokens[2].charAt(i);
 							if(!((index >=48 && index <= 57)||(index >=97 && index <=122))) {
-								System.out.println("파일 (비밀번호) 형식에 오류가 있습니다");
+								System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
 								System.exit(0);
 							}
 						}
@@ -106,19 +106,19 @@ public class MemberInfo {
 			}
 			fileReader.close();
 		}catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("오류오류오류!");
+			System.out.println("회원 정보 파일이 없습니다.\n프로그램을 종료합니다.");
+			System.exit(0);
 		}
 	}
 
 	public void memberInsert() { // 회원가입용 메소드
-		String uid, pwd, name;
+		String uid, pwd, name, name1;
 		Scanner sc = new Scanner(System.in);
 		System.out.print("초기 화면으로 가려면 'q'를 누르세요.\n");
 		while(true) {
 			System.out.print("학 번 : ");
 			uid = sc.nextLine();
-			if(uid.equals("q")){
+			if(uid.trim().equals("q")){
 				return;
 			}
 			try {
@@ -135,7 +135,7 @@ public class MemberInfo {
 				continue;
 			}
 			if(!isUniqueID(uid)) {
-				System.out.println("이미 사용중인 학번입니다. \n");
+				System.out.println("이미 사용중인 학번입니다.");
 				continue;
 			}
 			break;
@@ -144,21 +144,22 @@ public class MemberInfo {
 		while(true) {
 	         System.out.print("이 름 : ");
 	         name = sc.nextLine();
+	         name1 = name.trim();
 	         int check = 0;
-	         if(name.contentEquals("q")) {
+	         if(name1.contentEquals("q")) {
 	            return;
 	         }
-	         if (!name.matches("^[가-힣]+$")) {
+	         if (!name1.matches("^[가-힣]+$")) {
 	            // 영어, 공백, 한글 형식
-	            if (name.matches(".*[a-zA-Z]+.*")) {
+	            if (name1.matches(".*[a-zA-Z]+.*")) {
 	                System.out.println("영어를 포함한 이름은 입력할 수 없습니다.");
 	                continue;
 	            }
-	            else if(name.contains(" ")||name.contains("\t")) {
+	            else if(name1.contains(" ")||name1.contains("\t")) {
 	               System.out.println("공백은 입력할 수 없습니다.");
 	               continue;
 	            }
-	            else if(name.matches(".*\\d+.*")){
+	            else if(name1.matches(".*\\d+.*")){
 	               System.out.println("숫자는 입력할 수 없습니다.");
 	               continue;
 	            }
@@ -173,7 +174,7 @@ public class MemberInfo {
 	          * if(isJaeum(name.charAt(i))||isMoeum(name.charAt(i))) { check=1;
 	          * System.out.println("형식에 맞게 입력해주세요."); break; } }
 	          */
-	         if(name.length()<2||name.length()>10) {
+	         if(name1.length()<2||name1.length()>10) {
 	            System.out.println("길이에 맞게 이름을 입력하세요!");
 	            continue;
 	         }
@@ -184,9 +185,10 @@ public class MemberInfo {
 		//}
 		// pwd 예외처리
 		while(true) {
+			System.out.println("암호 입력 양식\n- 영문(소문자), 숫자만 사용 가능\n- 8~12길이의 문자열\n- 공백포함불가");
 			System.out.print("암 호 : ");
 			pwd = sc.nextLine();
-			if(pwd.equals("q")){
+			if(pwd.trim().equals("q")){
 				return;
 			}
 			if (pwd.length()<8 || pwd.length()>12) {
@@ -232,9 +234,9 @@ public class MemberInfo {
 				continue;
 		}
 		
-		Student newstudent = new Student(uid, name, pwd);
+		Student newstudent = new Student(uid, name1, pwd);
 		members.add(newstudent);
-		System.out.println("<< 학번 : "+uid+"  이름 : "+name+"    비밀번호 : "+pwd+" 로 가입을 진행합니다. >>");
+		System.out.println("<< 학번 : "+uid+"  이름 : "+name1+"    비밀번호 : "+pwd+" 로 가입을 진행합니다. >>");
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("src/StudyRoom/StudentInfoFile.txt", false));
             for (Student student : members) {
@@ -245,7 +247,7 @@ public class MemberInfo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-		System.out.println("가입 완료!! \n");
+		System.out.println("가입 완료!!");
 	}
 	
 	private boolean isJaeum(char c) {

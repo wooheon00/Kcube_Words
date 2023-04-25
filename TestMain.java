@@ -76,6 +76,12 @@ public class TestMain {
 							}
 							else {
 							tokens = line.split(" ");
+							try{
+								Integer.parseInt(tokens[0]);
+							}catch(Exception E){
+								System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+								System.exit(0);
+							}
 							if(tokens.length != 8) {
 								System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
 								System.exit(0);

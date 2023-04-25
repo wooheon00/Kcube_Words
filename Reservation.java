@@ -25,39 +25,45 @@ public class Reservation {
 				// 선언한 배열 안에 split으로 구분하여 하나씩 넣기
 				String[] tokens = null;
 				if(check == 8) {
-					System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+					System.out.println("파일 형식이 잘못되었습니다. 프로그램을 종료합니다.");
 					System.exit(0);
 				}
 				else {
-				tokens = line.split(" ");
-				if(tokens.length != 8) {
-					System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
-					System.exit(0);
-				}
-				}
+					tokens = line.split(" ");
+					try{
+						Integer.parseInt(tokens[0]);
+					}catch(Exception E){
+						System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+						System.exit(0);
+					}
+					if(tokens.length != 8) {
+						System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+						System.exit(0);
+					}
+					}
 				for(int j=0;j<8;j++) {
 					if(j == 0) {
 						if(Integer.parseInt(tokens[0]) != check+1) {
-							System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+							System.out.println("파일 형식이 잘못되었습니다. 프로그램을 종료합니다.");
 							System.exit(0);
 						}
 					}
 					else if(j == 1) {
 						if(Integer.parseInt(tokens[j-1]) >= 1 && Integer.parseInt(tokens[j-1]) <= 3) {
 							if(!tokens[j].equals("4")) {
-								System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+								System.out.println("파일 형식이 잘못되었습니다. 프로그램을 종료합니다.");
 								System.exit(0);
 							}
 						}
 						else if(Integer.parseInt(tokens[j-1]) >= 4 && Integer.parseInt(tokens[j-1]) <= 6) {
 							if(!tokens[j].equals("6")) {
-								System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+								System.out.println("파일 형식이 잘못되었습니다. 프로그램을 종료합니다.");
 								System.exit(0);
 							}
 						}
 						else if(Integer.parseInt(tokens[j-1]) >= 7 && Integer.parseInt(tokens[j-1]) <= 8) {
 							if(!tokens[j].equals("8")) {
-								System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+								System.out.println("파일 형식이 잘못되었습니다. 프로그램을 종료합니다.");
 								System.exit(0);
 							}
 						}
@@ -67,7 +73,8 @@ public class Reservation {
 							 if(tokens[j].length()!=9||tokens[j].charAt(0)!='2'||tokens[j].charAt(1)!='0'
 						               ||(tokens[j].charAt(2)!='1'&&tokens[j].charAt(2)!='2')||
 						               ((tokens[j].charAt(2)=='2'&&tokens[j].charAt(3)>'3'))) {
-								 System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
+								 System.out.println(tokens[j]);
+								 System.out.println("파일 형식이 잘못되었습니다. 프로그램을 종료합니다.");
 								 System.exit(0);
 							 }
 						}
@@ -79,12 +86,8 @@ public class Reservation {
 			}
 			fileReader.close();
 		} catch (IOException e) {
-			System.out.println("예약 정보 파일이 없습니다.\n프로그램을 종료합니다.");
+			System.out.println("예약 정보 파일이 없습니다. 프로그램을 종료합니다.");
 			System.exit(0);
-		}
-		if(check != 8) {
-			System.out.println("파일 형식에 오류가 있습니다.\n프로그램을 종료합니다.");
-			 System.exit(0);
 		}
 		Reservation_Menu();
 	}
